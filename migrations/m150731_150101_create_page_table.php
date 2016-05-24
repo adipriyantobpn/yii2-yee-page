@@ -29,8 +29,8 @@ class m150731_150101_create_page_table extends Migration
 
         $this->createIndex('page_slug', self::PAGE_TABLE, 'slug');
         $this->createIndex('page_status', self::PAGE_TABLE, 'status');
-        //$this->addForeignKey('fk_page_created_by', self::PAGE_TABLE, 'created_by', '{{%user}}', 'id', 'SET NULL', 'CASCADE');
-        //$this->addForeignKey('fk_page_updated_by', self::PAGE_TABLE, 'updated_by', '{{%user}}', 'id', 'SET NULL', 'CASCADE');
+        $this->addForeignKey('fk_page_created_by', self::PAGE_TABLE, 'created_by', '{{%user}}', 'id', 'SET NULL', 'CASCADE');
+        $this->addForeignKey('fk_page_updated_by', self::PAGE_TABLE, 'updated_by', '{{%user}}', 'id', 'SET NULL', 'CASCADE');
 
         $this->createTable(self::PAGE_LANG_TABLE, [
             'id' => $this->primaryKey(),
@@ -40,7 +40,7 @@ class m150731_150101_create_page_table extends Migration
             'content' => $this->text(),
         ], $tableOptions);
 
-        $this->createIndex('page_lang_post_id', self::PAGE_LANG_TABLE, 'page_id');
+        $this->createIndex('page_lang_page_id', self::PAGE_LANG_TABLE, 'page_id');
         $this->createIndex('page_lang_language', self::PAGE_LANG_TABLE, 'language');
         $this->addForeignKey('fk_page_lang', self::PAGE_LANG_TABLE, 'page_id', self::PAGE_TABLE, 'id', 'CASCADE', 'CASCADE');
     }
